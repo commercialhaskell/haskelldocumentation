@@ -1,11 +1,12 @@
-----
+---
 title: Content Sample
 author: John Doe <johndoe@example.com>
 description: This is a short, plain-text description of the content. It's optional, but may prove useful to others.
 first-written: 2015-02-24
 last-updated: 2015-02-24
 last-reviewed: 2015-02-24
-----
+---
+
 This is my tutorial on how to write content! Welcome! Having some text before the first header can be useful.
 
 ## First Heading
