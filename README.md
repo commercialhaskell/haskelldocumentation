@@ -64,7 +64,7 @@ would be triggered by having a link such as: `[insert-title](destination.md)`.
 
 ## Embedding?
 
-This is *not* currently supporting. We may consider allowing importing of
+This is *not* currently supported. We may consider allowing importing of
 content from another file at some point in the future.
 
 ## Authoring guidelines
