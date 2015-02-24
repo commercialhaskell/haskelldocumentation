@@ -30,8 +30,9 @@ follow the rest of this outline in particular.
 * [Basic Tooling Guide](../content/basic-tooling-guide.md)
 * [Common Typeclasses](../content/common-typeclasses.md)
 * [Common Language Extensions](../content/common-language-extensions.md)
+* [Haskell glossary](../content/haskell-glossary.md)
 * [All About Exceptions](../content/all-about-exceptions.md)
-* Haskell glossary. Define commonly used but not-commonly-understood terms (example: covariant, contravaraint, positive position, negative position)
+* Basics of lazy evaluation
 
 ## General patterns
 
