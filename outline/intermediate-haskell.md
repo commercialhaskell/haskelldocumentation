@@ -24,6 +24,7 @@ restructured correctly into outline format.
 
 * Exception handling
 * Asynchronous exceptions
+* [../content/exceptions-best-practices.md](Exceptions best practices)
 * Basic typeclasses (Monoid, Applicative, Alternative)
 
 ## Common techniques
