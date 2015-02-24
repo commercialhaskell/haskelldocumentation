@@ -17,9 +17,6 @@ contributions are highly welcome. Additionally, some of the lists below should
 be expanded. If you have thoughts on missing pieces, please bring them up on
 the issue tracker.
 
-__NOTE__ This list was copy-pasted from MezzoHaskell, and needs to be
-restructured correctly into outline format.
-
 ## Core information
 
 You understand the basics of Haskell syntax and some common library functions.
