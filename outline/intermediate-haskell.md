@@ -20,32 +20,31 @@ the issue tracker.
 __NOTE__ This list was copy-pasted from MezzoHaskell, and needs to be
 restructured correctly into outline format.
 
-## "Core"
+## Core information
 
-* Exception handling
-* Asynchronous exceptions
-* [Exceptions best practices](../content/exceptions-best-practices.md)
-* Basic typeclasses (Monoid, Applicative, Alternative)
+You understand the basics of Haskell syntax and some common library functions.
+This section should get you up to speed with many commonly used features of
+Haskell, to provide a foundation for understanding code in general, and to
+follow the rest of this outline in particular.
 
-## Common techniques
+* [Basic Tooling Guide](../content/basic-tooling-guide.md)
+* [Common Typeclasses](../content/common-typeclasses.md)
+* [Common Language Extensions](../content/common-language-extensions.md)
+* [All About Exceptions](../content/all-about-exceptions.md)
+* Haskell glossary. Define commonly used but not-commonly-understood terms (example: covariant, contravaraint, positive position, negative position)
 
-* Monad transformers
-    * monad-control
-* CPS
+## General patterns
 
-## Language extensions
+This section demonstrates some common Haskell coding patterns, how they work,
+when they're useful, and possible pitfalls.
 
-* OverloadedStrings
-* ViewPatterns
-* PatternGuards
-* TypeFamilies
-* FunDeps
-* MPTC
-* GADT
-* TemplateHaskell
-* QuasiQuotes
+* [Monad Transformers](../content/monad-transformers.md)
+* Continuation Passing Style
 
 ## Data structures
+
+Covers some of the most commonly used data structures in Haskell, and the
+libraries providing them.
 
 * vector
 * containers
@@ -53,35 +52,101 @@ restructured correctly into outline format.
 * text
 * bytestring
 
+## Standard programming needs
+
+* Calling external processes (can include [Data.Conduit.Process](https://www.fpcomplete.com/user/snoyberg/library-documentation/data-conduit-process))
+* Builders and difference lists
+
+## Concurrency and parallelism
+
+Simon Marlow's book [Parallel and Concurrent Programming in
+Haskell](http://chimera.labs.oreilly.com/books/1230000000929/index.html) is a
+highly recommended read on the subject. In addition, we have the following
+topics:
+
+* The async package
+* Common concurrency patterns (e.g., the auto-update package)
+* Concurrency patterns: worker threads, signals, blocking on TVars
+* STM: blocking semantics around mutable variables
+
+## Testing
+
+* QuickCheck
+* hspec, tasty, others?
+
+## Streaming data
+
+Streaming data libraries allow you to process large amounts of input with
+reliable resource usage, be that memory, file descriptors, or other resources.
+There are a number of different libraries for doing this in Haskell. Instead of
+a single library, each library can have its own subsection here. In addition,
+the following provides an overview of the different options.
+
+* [Overview of Streaming Data Libraries](../content/overview-streaming-data-libraries.md)
+
+### conduit
+
+* https://www.fpcomplete.com/user/snoyberg/library-documentation/conduit-overview
+* https://www.fpcomplete.com/user/snoyberg/library-documentation/resourcet
+* http://www.yesodweb.com/blog/2014/03/network-conduit-async
+* https://www.fpcomplete.com/user/snoyberg/library-documentation/vectorbuilder
+
+## Web programming
+
+Web programming is another topic with many different approaches. Like streaming
+data, we need an overview of the different options, and then a drilldown on
+individual approaches. For now:
+
+* [Web Application Interface](https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc)
+* [Yesod Web Framework](http://www.yesodweb.com/book)
+
+## Advanced topics
+
+* [Primitive Haskell](../content/primitive-haskell.md)
+* https://wiki.haskell.org/Evaluation_order_and_state_tokens
+* Cabal trickery for backwards compatibility: Cabal CPP macros. Paths module. Flags. How to test for windows. Defaulting macros for ghci. Flags to either use new library version or another package (bytestring-builder) and set a CPP variable.
+
+## Big library guide
+
+The following libraries are somewhat "large" in the sense that they address
+many different concerns.
+
+* lens
+* mono-traversable
+
+### Alternate Preludes
+
+Sometimes it is useful to use an alternative to the standard `Prelude`. Reasons
+include avoiding cross-version incompatibility, support for better data
+structures, and avoiding partial functions. Here are some commonly used
+preludes (in alphabetical order).
+
+* base-prelude
+* basic-prelude
+* classy-prelude
+
+## Best practices
+
+* [Exceptions best practices](../content/exceptions-best-practices.md)
+* Typeclasses versus records
+* "Good" use of typeclass extensions
+* Proper error reporting (Either, Maybe, ErrorT, exceptions package and using MonadThrow)
+
 ## Serialization
 
 * binary/cereal
-* blaze-builder
+* blaze-builder/bytestring-builder
 * blaze-html
 * attoparsec
 * aeson
 * yaml
 * xml-conduit
 
-## Other libraries
+## Database Programming
 
-* system-filepath
+* persistent
 * esqueleto
-
-## Open debates
-
-* Streaming data
-    * conduit
-    * iteratee/enumerator
-    * pipes
-* Typeclasses versus records
-* "Good" use of typeclass extensions
-* Proper error reporting (Either, Maybe, ErrorT)
-
-## Tools
-
-* cabal
-* Test framework
+* opaleye
 
 ## Debugging/optimizing
 
@@ -93,37 +158,3 @@ restructured correctly into outline format.
 * Pragmas (UNPACK, INLINE, ...)
 * Heap profiling
 * Looking at GHC core
-
-## Misc topics (not sorted in yet, just added now)
-
-* Builders
-* Monad transformers: [EitherT vs IO](http://stackoverflow.com/questions/25752900/exceptions-and-monad-transformers/25753497#25753497)
-* [Wrap exceptions to provide context](http://stackoverflow.com/questions/27346380/how-to-wrap-exceptions-to-provide-context)
-* [General dislike of exceptions](http://www.reddit.com/r/haskell/comments/2ety9f/new_blog_post_dealing_with_asynchronous/ck3fkbp)
-* STM: blocking semantics around mutable variables
-* The async package
-* exceptions package and using MonadThrow
-* Tutorial on Vector
-* Concurrency patterns: worker threads, signals, blocking on TVars
-* Cabal CPP macros. Paths module. Flags. How to test for windows. Defaulting macros for ghci. Flags to either use new library version or another package (bytestring-builder) and set a CPP variable.
-* Exceptions problems. Can't wrap. Can't have two exceptions. No idea how exception was thrown.
-* Proper way to call external programs
-* Haskell glossary. Define commonly used but not-commonly-understood terms (example: covariant, contravaraint, positive position, negative position)
-* [Primitive Haskell](../content/primitive-haskell.md)
-
-## External content worth importing:
-
-This is starting off as a biased list of my own content. Others should feel free to add to it themselves.
-
-* Everything from: https://www.fpcomplete.com/user/snoyberg/library-documentation, especially once we have export-to-SoH functionality
-* https://www.fpcomplete.com/user/snoyberg/general-haskell/exceptions/exceptions-and-monad-transformers
-* https://www.fpcomplete.com/user/snoyberg/general-haskell/exceptions/catching-all-exceptions
-* https://www.fpcomplete.com/user/snoyberg/general-haskell/basics/functors-applicative-functors-and-monads
-* https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc
-* http://www.yesodweb.com/blog/2014/09/woes-multiple-package-versions
-* http://www.yesodweb.com/blog/2014/05/exceptions-cont-monads
-* http://www.yesodweb.com/blog/2014/03/network-conduit-async
-
-Stuff from Haskell Wiki?
-
-* https://wiki.haskell.org/Evaluation_order_and_state_tokens
