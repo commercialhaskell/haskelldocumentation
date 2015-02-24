@@ -27,5 +27,5 @@ main :: IO ()
 main = putStrLn "Hello World!"
 ```
 
-And don't forget that linking to content ([](somecontent.md)) and to
+And don't forget that linking to content ([insert-title](somecontent.md)) and to
 outlines ([insert-title](../outline/someoutline.md)) is a good idea.
