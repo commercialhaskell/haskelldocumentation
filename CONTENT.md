@@ -28,4 +28,4 @@ main = putStrLn "Hello World!"
 ```
 
 And don't forget that linking to content ([](somecontent.md)) and to
-outlines ([](../outline/someoutline.md)) is a good idea.
+outlines ([insert-title](../outline/someoutline.md)) is a good idea.

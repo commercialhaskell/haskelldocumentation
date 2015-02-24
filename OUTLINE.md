@@ -18,12 +18,12 @@ Then set up your outline as flat lists in individual sections
 
 ## Section 1
 
-* [](../content/subject1.md)
-* [](../content/subject2.md)
-* [](../content/subject3.md)
+* [insert-title](../content/subject1.md)
+* [insert-title](../content/subject2.md)
+* [insert-title](../content/subject3.md)
 
 ## Section 2
 
-* [](../content/subject4.md)
-* [](../content/subject5.md)
-* [](../content/subject6.md)
+* [insert-title](../content/subject4.md)
+* [insert-title](../content/subject5.md)
+* [insert-title](../content/subject6.md)

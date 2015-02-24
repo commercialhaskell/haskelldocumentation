@@ -60,7 +60,7 @@ We should use standard Markdown linking conventions as relative paths. For examp
 
 As a special feature, we *should* provide tooling that automatically fills in
 link text when not provided by grabbing the title from the destination. This
-would be triggered by having a link such as: `[](destination.md)`.
+would be triggered by having a link such as: `[insert-title](destination.md)`.
 
 ## Embedding?
 
