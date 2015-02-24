@@ -31,6 +31,17 @@ follow the rest of this outline in particular.
 * [All About Exceptions](../content/all-about-exceptions.md)
 * Basics of lazy evaluation
 
+## Data structures
+
+Covers some of the most commonly used data structures in Haskell, and the
+libraries providing them.
+
+* vector (cover vector-algorithms)
+* containers
+* unordered-containers
+* text (cover text-icu)
+* bytestring
+
 ## General patterns
 
 This section demonstrates some common Haskell coding patterns, how they work,
@@ -38,39 +49,40 @@ when they're useful, and possible pitfalls.
 
 * [Monad Transformers](../content/monad-transformers.md)
 * Continuation Passing Style
-
-## Data structures
-
-Covers some of the most commonly used data structures in Haskell, and the
-libraries providing them.
-
-* vector
-* containers
-* unordered-containers
-* text
-* bytestring
-
-## Standard programming needs
-
-* Calling external processes (can include [Data.Conduit.Process](https://www.fpcomplete.com/user/snoyberg/library-documentation/data-conduit-process))
 * Builders and difference lists
-
-## Concurrency and parallelism
-
-Simon Marlow's book [Parallel and Concurrent Programming in
-Haskell](http://chimera.labs.oreilly.com/books/1230000000929/index.html) is a
-highly recommended read on the subject. In addition, we have the following
-topics:
-
-* The async package
-* Common concurrency patterns (e.g., the auto-update package)
-* Concurrency patterns: worker threads, signals, blocking on TVars
-* STM: blocking semantics around mutable variables
 
 ## Testing
 
 * QuickCheck
 * hspec, tasty, others?
+
+## Serialization
+
+* binary/cereal
+* blaze-builder/bytestring-builder
+* blaze-html
+* attoparsec
+* aeson
+* yaml
+* xml-conduit/html-conduit
+* base16-bytestring/base64-bytestring
+
+## Standard programming needs
+
+* Calling external processes (can include [Data.Conduit.Process](https://www.fpcomplete.com/user/snoyberg/library-documentation/data-conduit-process))
+* HTTP client library
+* Command line argument parsing optparse-applicative
+* cryptohash
+* time
+* Random number generation (mwc-random)
+* Possibly others from: https://www.fpcomplete.com/school/using-fphc/recommended-libraries
+
+## Best practices
+
+* [Exceptions best practices](../content/exceptions-best-practices.md)
+* Typeclasses versus records
+* "Good" use of typeclass extensions
+* Proper error reporting (Either, Maybe, ErrorT, exceptions package and using MonadThrow)
 
 ## Streaming data
 
@@ -88,6 +100,20 @@ the following provides an overview of the different options.
 * https://www.fpcomplete.com/user/snoyberg/library-documentation/resourcet
 * http://www.yesodweb.com/blog/2014/03/network-conduit-async
 * https://www.fpcomplete.com/user/snoyberg/library-documentation/vectorbuilder
+* conduit-combinators
+
+## Concurrency and parallelism
+
+Simon Marlow's book [Parallel and Concurrent Programming in
+Haskell](http://chimera.labs.oreilly.com/books/1230000000929/index.html) is a
+highly recommended read on the subject. In addition, we have the following
+topics:
+
+* The async package
+* Common concurrency patterns (e.g., the auto-update package)
+* Concurrency patterns: worker threads, signals, blocking on TVars
+* STM: blocking semantics around mutable variables
+* resource-pool
 
 ## Web programming
 
@@ -97,12 +123,6 @@ individual approaches. For now:
 
 * [Web Application Interface](https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc)
 * [Yesod Web Framework](http://www.yesodweb.com/book)
-
-## Advanced topics
-
-* [Primitive Haskell](../content/primitive-haskell.md)
-* https://wiki.haskell.org/Evaluation_order_and_state_tokens
-* Cabal trickery for backwards compatibility: Cabal CPP macros. Paths module. Flags. How to test for windows. Defaulting macros for ghci. Flags to either use new library version or another package (bytestring-builder) and set a CPP variable.
 
 ## Big library guide
 
@@ -123,28 +143,19 @@ preludes (in alphabetical order).
 * basic-prelude
 * classy-prelude
 
-## Best practices
+## Advanced topics
 
-* [Exceptions best practices](../content/exceptions-best-practices.md)
-* Typeclasses versus records
-* "Good" use of typeclass extensions
-* Proper error reporting (Either, Maybe, ErrorT, exceptions package and using MonadThrow)
-
-## Serialization
-
-* binary/cereal
-* blaze-builder/bytestring-builder
-* blaze-html
-* attoparsec
-* aeson
-* yaml
-* xml-conduit
+* [Primitive Haskell](../content/primitive-haskell.md)
+* https://wiki.haskell.org/Evaluation_order_and_state_tokens
+* Cabal trickery for backwards compatibility: Cabal CPP macros. Paths module. Flags. How to test for windows. Defaulting macros for ghci. Flags to either use new library version or another package (bytestring-builder) and set a CPP variable.
 
 ## Database Programming
 
 * persistent
 * esqueleto
 * opaleye
+* mysql-simple
+* postgresql-simple
 
 ## Debugging/optimizing
 
