@@ -15,3 +15,4 @@ Needs to be written. Basics:
 * Sandboxing
 * Starting a project
 * http://www.yesodweb.com/blog/2014/09/woes-multiple-package-versions
+* Generating docs with working links, e.g.: `cabal haddock --hyperlink-source --html-location='http://www.stackage.org/haddock/lts-1.9/$pkg-$version'`
