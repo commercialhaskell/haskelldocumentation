@@ -73,3 +73,10 @@ For now, please see [the original
 proposal](https://github.com/commercialhaskell/commercialhaskell/blob/master/proposal/intermediate-haskell-documentation.md#quality)
 for some recommendations on quality. Eventually, those guidelines should be
 moved into this document.
+
+## Wikis
+
+Essentially this is a wiki for intermediate Haskell documentation.
+
+There is an important difference between wikis and github. Most wikis are oddly horrible for discussing content, so they actually don't scale well beyond 1 contributor per page (Wikipedia is a total disaster in this regard, but worse is better).
+Pull requests are much easier to work with than most wiki systems. They make it clear that people are notified about changes and contributions are discussed (with line comments) before being committed.
