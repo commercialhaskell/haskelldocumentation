@@ -12,3 +12,4 @@ last-reviewed: 2015-02-24
 * Pitfalls of Writer laziness
 * Dealing with exceptions and control structures (monad-control and exceptions packages), and losing state
 * Monad transformers: [EitherT vs IO](http://stackoverflow.com/questions/25752900/exceptions-and-monad-transformers/25753497#25753497)
+* https://github.com/kqr/gists/blob/master/articles/gentle-introduction-monad-transformers.md (need to get permission to relicense)
