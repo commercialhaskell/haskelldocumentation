@@ -98,6 +98,11 @@ they're *all* defined as `let x = x in x`. When GHC reaches a call to one of
 these primops, it automatically replaces it with the real implementation for
 you, which will be some assembly code, LLVM code, or something similar.
 
+You may be wondering: why bother with this dummy implementation at all? The
+sole reason is to give Haddock documentation for the primops a place to live.
+GHC.Prim is processed by Haddock more or less like any other module; but is
+effectively ignored by GHC itself.
+
 Why do all of these functions end in a `#`? That's called the magic hash
 (enabled by the `MagicHash` language extension), and it is a convention to
 distinguish boxed and unboxed types and operations. Which, of course, brings us
