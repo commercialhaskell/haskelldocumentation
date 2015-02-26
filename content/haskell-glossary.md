@@ -12,7 +12,9 @@ terms, tooling terms, and even general programming terms. Please feel free to
 make any additions desired without checking with the author! Try to keep
 everything in alphabetical order.
 
+* __Catamorphism__
 * __Contravaraint__
 * __Covariant__
-* __Positive position__
 * __Negative position__
+* __Positive position__
+
