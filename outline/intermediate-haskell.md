@@ -70,13 +70,19 @@ when they're useful, and possible pitfalls.
 
 ## Standard programming needs
 
-* Calling external processes (can include [Data.Conduit.Process](https://www.fpcomplete.com/user/snoyberg/library-documentation/data-conduit-process))
 * HTTP client library
 * Command line argument parsing optparse-applicative
 * cryptohash
 * time
 * Random number generation (mwc-random)
 * Possibly others from: https://www.fpcomplete.com/school/using-fphc/recommended-libraries
+* Regular expressions with regex-applicative
+
+## System programming
+
+* Launching subprocesses, capturing output, working with environment (can include [Data.Conduit.Process](https://www.fpcomplete.com/user/snoyberg/library-documentation/data-conduit-process))
+* Network and Socket I/O
+* Writing scripts (turtle, Shelly)
 
 ## Best practices
 
@@ -125,12 +131,6 @@ individual approaches. For now:
 
 * [Web Application Interface](https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc)
 * [Yesod Web Framework](http://www.yesodweb.com/book)
-
-## System programming
-
-* Launching shell subprocess, capturing output, working with environment
-* Network and Socket I/O
-* Writing scripts (turtle, Shelly)
 
 ## Big library guide
 
