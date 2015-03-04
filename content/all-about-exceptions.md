@@ -22,3 +22,5 @@ Should cover:
 * [Wrap exceptions to provide context](http://stackoverflow.com/questions/27346380/how-to-wrap-exceptions-to-provide-context)
 * [General dislike of exceptions](http://www.reddit.com/r/haskell/comments/2ety9f/new_blog_post_dealing_with_asynchronous/ck3fkbp)
 * enclosed-exceptions
+* Examples of code-conversion between all possible error styles
+* unexceptionalio and errors libraries
