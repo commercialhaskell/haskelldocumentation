@@ -174,3 +174,10 @@ preludes (in alphabetical order).
 * Pragmas (UNPACK, INLINE, ...)
 * Heap profiling
 * Looking at GHC core
+
+## Code and project structuring
+
+As a project grows, there are many "patterns" that might save developer some time by just doing some restructuring work. Some tricks might save development time, while others help to re-compile less.
+
+* Common `Imports.hs` module
+* Multiple executables depending on common library
