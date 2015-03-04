@@ -25,6 +25,7 @@ Haskell, to provide a foundation for understanding code in general, and to
 follow the rest of this outline in particular.
 
 * [Basic Tooling Guide](../content/basic-tooling-guide.md)
+* Tooling & IDEs
 * [Common Typeclasses](../content/common-typeclasses.md)
 * [Common Language Extensions](../content/common-language-extensions.md)
 * [Haskell glossary](../content/haskell-glossary.md)
