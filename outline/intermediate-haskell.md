@@ -114,6 +114,7 @@ topics:
 * Concurrency patterns: worker threads, signals, blocking on TVars
 * STM: blocking semantics around mutable variables
 * resource-pool
+* handling errors (SlaveThread), restarting tasks, timeouts and other common patterns
 
 ## Web programming
 
@@ -123,6 +124,12 @@ individual approaches. For now:
 
 * [Web Application Interface](https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc)
 * [Yesod Web Framework](http://www.yesodweb.com/book)
+
+## System programming
+
+* Launching shell subprocess, capturing output, working with environment
+* Network and Socket I/O
+* Writing scripts (turtle, Shelly)
 
 ## Big library guide
 
