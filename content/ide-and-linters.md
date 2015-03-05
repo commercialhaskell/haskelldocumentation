@@ -50,6 +50,9 @@ And check that your `~/.emacs` file has:
 (cask-initialize)
 ```
 
+After adding dependencies to your `Cask` file, run `cask install` in
+that directory.
+
 #### exec-path-from-shell
 
 On MacOS X you will also need
