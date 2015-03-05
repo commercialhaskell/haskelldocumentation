@@ -100,7 +100,6 @@ already have `custom-set-variables` in your `.emacs` -- extend it):
 (defun turn-on-subword-mode ()
   (interactive)
   (subword-mode 1))
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
 (defun my-haskell-mode-hook ()
   (define-key haskell-mode-map (kbd "C-c C-l") 'haskell-process-load-or-reload)
   (define-key haskell-mode-map (kbd "C-`") 'haskell-interactive-bring)
@@ -113,8 +112,11 @@ already have `custom-set-variables` in your `.emacs` -- extend it):
 (custom-set-variables
  '(haskell-mode-hook
    (quote
-    (turn-on-haskell-indent turn-on-subword-mode
-    turn-on-haskell-decl-scan my-haskell-mode-hook)))
+    (interactive-haskell-mode 
+     turn-on-haskell-indent 
+     turn-on-subword-mode
+     turn-on-haskell-decl-scan 
+     my-haskell-mode-hook)))
  '(haskell-process-type 'cabal-repl))
 ```
 
