@@ -9,8 +9,6 @@ last-updated: 2015-03-05
 Incomplete. Need to add:
 
 * Emacs:
-  * ghc-mod
-  * flycheck
   * tags-search (hasktags)
   * haskell-mode + hlint
   * stylish-haskell
@@ -129,3 +127,66 @@ available commands starting with `haskell-`. There's plenty of them!
 Press `C-c C-l` to open a `cabal repl` shell with current module
 loaded. You can easily play with your code like this. Also, pressing
 `C-c C-i` will inspect symbol under cursor and show you some info. Neat!
+
+### ghc-mod
+
+[Ghc-mod](http://www.mew.org/~kazu/proj/ghc-mod/en/) is a tool that
+helps your editor become more close to an IDE. It lets you do things
+like blazingly-fast error-reporting upon save, autocompletion and more.
+
+First, install ghc-mod itself:
+
+```
+cabal install ghc-mod
+```
+
+Then, add this to your `Cask` file:
+
+```elisp
+(depends-on "ghc")
+```
+
+And this to your `~/.emacs`:
+
+```
+(autoload 'ghc-init "ghc" nil t)
+(autoload 'ghc-debug "ghc" nil t)
+```
+
+and extend your `my-haskell-mode-hook` with call to `(ghc-init)` like
+this:
+
+```elisp
+(defun my-haskell-mode-hook ()
+  (ghc-init)
+  ; ... all previous contents
+  )
+```
+
+After this is done, relaunch your Emacs (or re-eval config)
+and open some `.hs`-file. Make a mistake and save the file, mistake
+should now become underlined with red, and pressing `M-S-?` while
+keeping curstor on top of it will show the error, and `M-n` `M-p`
+should navigate between next/prev errors.
+
+Check out
+[ghc-mod homepage](http://www.mew.org/~kazu/proj/ghc-mod/en/) and
+other resources to know more.
+
+### TAGS
+
+In order to get a "goto by name" functionality you can use standard
+[Emacs TAGS support](https://www.gnu.org/software/emacs/manual/html_node/emacs/Tags.html). Haskell
+has a special program, called `hasktags`:
+
+```
+cabal install hasktags
+```
+
+In order to generate tags, you can use `haskell-mode`'s `M-x
+haskell-process-generate-tags`, or you can manually run `hasktags -e.`
+in your project's root.
+
+`haskell-mode` replaces standard `M-.` tag-search with it's own,
+trying to search via ghci first, and only then via standard TAGS
+mechanism.
