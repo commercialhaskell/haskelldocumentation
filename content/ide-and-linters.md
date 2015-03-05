@@ -39,7 +39,7 @@ package-installation.
 Make sure a `Cask` file in your `.emacs.d` directory has marmelade
 repo, ensure it looks something like this:
 
-```
+```elisp
 (source gnu)
 (source melpa)
 (source marmalade)
@@ -47,7 +47,7 @@ repo, ensure it looks something like this:
 
 And check that your `~/.emacs` file has:
 
-```
+```elisp
 (require 'cask "~/.cask/cask.el")
 (cask-initialize)
 ```
@@ -61,13 +61,13 @@ zsh) into your emacs, so that it inherits your `$PATH` and sees proper
 `~/.cabal/bin/cabal`, for example. To install, add following to your
 `Cask` file:
 
-```
+```elisp
 (depends-on "exec-path-from-shell")
 ```
 
 and run `cask install` from `Cask`-file directory. Add following to your `~/.emacs`:
 
-```
+```elisp
 (when (memq window-system '(mac ns))
   (exec-path-from-shell-initialize))
 ```
@@ -78,7 +78,7 @@ First of all, you should use
 [haskell-mode](https://github.com/haskell/haskell-mode) for editing
 `.hs` and `.cabal` files. Add this line to your `Cask`:
 
-```
+```elisp
 (depends-on "haskell-mode")
 ```
 
@@ -96,7 +96,7 @@ and
 pages, or just put something like this to your `.emacs` (if you
 already have `custom-set-variables` in your `.emacs` -- extend it):
 
-```
+```elisp
 (defun turn-on-subword-mode ()
   (interactive)
   (subword-mode 1))
