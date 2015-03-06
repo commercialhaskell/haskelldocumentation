@@ -182,3 +182,4 @@ As a project grows, there are many "patterns" that might save developer some tim
 
 * Common `Imports.hs` module
 * Multiple executables depending on common library
+* Default data pattern (like [in yesod book](http://www.yesodweb.com/book/settings-types))
