@@ -26,10 +26,10 @@ able to use it, you can get a very nice development environment.
 
 ### Prerequisites
 
-#### Cask / use-package
+#### Cask (or use-package)
 
-It's assumed you have modern package manager Cask installed. You can
-install it by following the
+It's assumed in this tutorial you have modern package manager Cask installed.
+You can install it by following the
 [cask user guide](http://cask.readthedocs.org/en/latest/index.html). For
 older Emacs versions (< 24), please figure out other method of
 package-installation.
@@ -53,21 +53,20 @@ And check that your `~/.emacs` file has:
 After adding dependencies to your `Cask` file, run `cask install` in
 that directory.
 
-If instead of `Cask` you are using `use-package` to manage your
-package, then make sure that you have this in your `init.el` file:
+If instead of `Cask` you are using [use-package](https://github.com/jwiegley/use-package)
+to manage your packages, then make sure that you have this in your `init.el` file:
 
 ```elisp
 (setq package-archives
       '(("gnu"         . "http://elpa.gnu.org/packages/")
         ("marmalade"   . "http://marmalade-repo.org/packages/")
         ("melpa" . "http://melpa.milkbox.net/packages/")))
-
 (package-initialize)
-
 (require 'use-package)
 ```
 
-Make sure that you install `use-package` from the package manager.
+Make sure that you install `use-package` from the package manager. Following tutorial
+should be straightforward.
 
 #### exec-path-from-shell
 
