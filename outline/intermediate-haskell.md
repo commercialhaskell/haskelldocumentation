@@ -90,6 +90,7 @@ when they're useful, and possible pitfalls.
 * Typeclasses versus records
 * "Good" use of typeclass extensions
 * Proper error reporting (Either, Maybe, ErrorT, exceptions package and using MonadThrow)
+* [Designing APIs for Extensibility](../content/designing-apis-for-extensibility.md)
 
 ## Streaming data
 
