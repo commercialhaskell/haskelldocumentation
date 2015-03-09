@@ -77,6 +77,7 @@ when they're useful, and possible pitfalls.
 * Random number generation (mwc-random)
 * Possibly others from: https://www.fpcomplete.com/school/using-fphc/recommended-libraries
 * Regular expressions with regex-applicative
+* [All about strings](../content/all-about-strings.md)
 
 ## System programming
 
