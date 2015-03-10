@@ -120,6 +120,7 @@ topics:
 
 * The async package
 * Common concurrency patterns (e.g., the auto-update package)
+    * "Passing the baton" to control flow of execution between threads, using `MVar` for two threads, `TVar` for multiple threads
 * Concurrency patterns: worker threads, signals, blocking on TVars
 * STM: blocking semantics around mutable variables
 * resource-pool
