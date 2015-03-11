@@ -9,7 +9,6 @@ last-updated: 2015-03-05
 Incomplete. Need to add:
 
 * Emacs:
-  * tags-search (hasktags)
   * haskell-mode + hlint
   * stylish-haskell
   * Additional:
@@ -208,3 +207,22 @@ in your project's root.
 `haskell-mode` replaces standard `M-.` tag-search with it's own,
 trying to search via ghci first, and only then via standard TAGS
 mechanism.
+
+### Auto-completion via company-ghc
+
+Auto-completion via [company-ghc](https://github.com/iquiw/company-ghc) is pretty simple. Put this to your `Cask`:
+
+```elisp
+(depends-on "company")
+(depends-on "company-ghc")
+```
+
+Then put this to your `.emacs`:
+
+```elisp
+(require 'company)
+(add-hook 'after-init-hook 'global-company-mode)
+(add-to-list 'company-backends 'company-ghc)
+```
+
+Voila! Beautiful auto-complete from `ghc-mod` works like a charm.
