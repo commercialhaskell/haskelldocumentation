@@ -186,3 +186,11 @@ As a project grows, there are many "patterns" that might save developer some tim
 * Common `Imports.hs` module
 * Multiple executables depending on common library
 * Default data pattern (like [in yesod book](http://www.yesodweb.com/book/settings-types))
+
+## Application infrastructure and support
+
+As part of "commercial haskell", I think it would be great to have both, haskell-specific and non-specific description with examples in haskell for how do you manage all the standard needs for your application infrastructure and support. Some topics would include:
+
+* Deployment & service management
+* Monitoring and metrics (ekg, bosun)
+* Log handling techniques
