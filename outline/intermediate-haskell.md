@@ -56,6 +56,7 @@ when they're useful, and possible pitfalls.
 
 * QuickCheck
 * hspec, tasty, others?
+* [Hspec/doctest with Cabal as test framework](https://github.com/kazu-yamamoto/unit-test-example/blob/master/markdown/en/tutorial.md)
 
 ## Serialization
 
@@ -167,6 +168,7 @@ preludes (in alphabetical order).
 * opaleye
 * mysql-simple
 * postgresql-simple
+* [Haskell Relational Record](http://khibino.github.io/haskell-relational-record/)
 
 ## Debugging/optimizing
 
