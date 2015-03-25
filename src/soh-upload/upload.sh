@@ -1,5 +1,5 @@
 # Intended usage is from the root of the repo:
-# sh src/upload.sh
+# ./src/soh-upload/upload.sh
 
 # You must have soh-upload installed:
 # cabal install src/soh-upload
