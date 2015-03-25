@@ -8,6 +8,8 @@
 # You may set SIG_FOLDER
 #   (but make sure it has a trailing slash)
 
+echo Uploading files to $SIG_USER/$SIG_FOLDER
+
 for FOLDER in content outline; do
 
 echo ======= begin $FOLDER directory =======
