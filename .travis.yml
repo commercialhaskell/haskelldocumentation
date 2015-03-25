@@ -1,5 +1,7 @@
 env:
- - CABALVER=1.20 GHCVER=7.8.4
+ global:
+ - CABALVER=1.20
+ - GHCVER=7.8.4
  - SIG_USER=commercial
  - secure: "HGTGThYIkhnrXPPAkPLsYQjSC1z3Z3vp71n1U04yBPHlzfn3Tp/xv0wPAayy4EPj6XrjQuEGjYRKoKHflOVNWWbv+CrAEWL2pghssiBoDgox13Pwg+L4C59/B3cz+eLAyQ0Zu0IOub7lOGhZ7esTVwEPpPFCzlUWATuPn+kzn5A="
 
