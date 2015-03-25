@@ -4,13 +4,13 @@ env:
  - GHCVER=7.8.4
  - SIG_USER=commercial
  - secure: "HGTGThYIkhnrXPPAkPLsYQjSC1z3Z3vp71n1U04yBPHlzfn3Tp/xv0wPAayy4EPj6XrjQuEGjYRKoKHflOVNWWbv+CrAEWL2pghssiBoDgox13Pwg+L4C59/B3cz+eLAyQ0Zu0IOub7lOGhZ7esTVwEPpPFCzlUWATuPn+kzn5A="
+ - PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$HOME/.cabal/bin:$PATH
 
 # Note: the distinction between `before_install` and `install` is not important.
 before_install:
  - travis_retry sudo add-apt-repository -y ppa:hvr/ghc
  - travis_retry sudo apt-get update
  - travis_retry sudo apt-get install cabal-install-$CABALVER ghc-$GHCVER # see note about happy/alex
- - export PATH=/opt/ghc/$GHCVER/bin:/opt/cabal/$CABALVER/bin:$HOME/.cabal/bin:$PATH
 
 install:
  - cabal --version
