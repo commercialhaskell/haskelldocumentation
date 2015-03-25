@@ -1,4 +1,5 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE LambdaCase #-}
 module Preprocess (preprocessMarkdown) where
 
 import Data.Maybe
@@ -11,7 +12,7 @@ import Data.Conduit.Binary (sinkLbs)
 import qualified Data.Conduit.List as CL (map)
 import Data.Text (Text)
 import qualified Data.Text as T
-import Data.XML.Types (Event (EventBeginElement), Content (ContentText), Name, Content)
+import Data.XML.Types (Event (EventBeginElement, EventContent), Content (ContentText), Name, Content)
 import Text.HTML.DOM (eventConduit)
 import Text.XML.Stream.Render (renderBytes, def)
 import Text.Markdown (markdown)
@@ -51,12 +52,34 @@ isAbsolute :: Href -> Bool
 isAbsolute = T.isInfixOf "//"
 
 
+-- If the first line of a Haskell code block is "-- active"
+-- then make it an Active Haskell code block.
+activeHaskellTweak :: Monad m => Conduit Event m Event
+activeHaskellTweak = awaitForever $ \e1 -> case e1 of
+    EventBeginElement "code" attrs -> case lookup "class" attrs of
+      Just [ContentText "haskell"] -> await >>= \case
+        Just e2@(EventContent (ContentText t)) -> case T.lines t of
+          ("-- active":ts) -> do
+    -- Success case: yield modified elements
+            yield $ EventBeginElement "code" $ withActiveHaskell attrs
+            yield $ EventContent $ ContentText $ T.unlines ts
+    -- Failure cases: yield whatever has been consumed so far
+          _     -> yield e1 >> yield e2
+        Just e2 -> yield e1 >> yield e2
+        Nothing -> yield e1
+      _         -> yield e1
+    _           -> yield e1
+  where
+    withActiveHaskell = map activeHaskellClass
+    activeHaskellClass ("class", _) = ("class", [ContentText "haskell active"])
+    activeHaskellClass attr = attr
+
+
 -- This is the part of the pipeline
 -- that performs modifications to XML events.
 -- Any future modifications can be fused in here.
--- TODO: haskell active code block
 eventModifications :: Monad m => Conduit Event m Event
-eventModifications = CL.map hrefTweakEvent
+eventModifications = CL.map hrefTweakEvent =$= activeHaskellTweak
 
 
 preprocessMarkdown :: ByteString -> IO ByteString
