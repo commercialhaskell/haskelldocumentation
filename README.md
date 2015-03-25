@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/commercialhaskell/haskelldocumentation.svg?branch=master)](https://travis-ci.org/commercialhaskell/haskelldocumentation)
+
 This repository is an implementation of the [intermediate Haskell documentation
 proposal](https://github.com/commercialhaskell/commercialhaskell/blob/master/proposal/intermediate-haskell-documentation.md).
 The goal is to have a repository where any documentation can be added,
@@ -5,6 +7,10 @@ collaboratively maintained, and linked together in various outlines to provide
 a structured learning experience. Concretely: while the original proposal was
 specifically to enable "intermediate Haskell documentation," this repository is
 intended to support any kind of documentation.
+
+All content is automatically [uploaded to School of
+Haskell](https://www.fpcomplete.com/user/commercial) by a Travis job for easier
+reading.
 
 ## Licensing
 
