@@ -13,7 +13,7 @@ executable soh-upload
   other-extensions:    OverloadedStrings, RecordWildCards, LambdaCase, DeriveFunctor, DeriveFoldable, DeriveTraversable, DeriveDataTypeable
   build-depends:
       base >=4.7
-    , exceptions >=0.6 && <0.7
+    , exceptions >=0.6
     , aeson >=0.8
     , bytestring >=0.10
     , containers >=0.5
