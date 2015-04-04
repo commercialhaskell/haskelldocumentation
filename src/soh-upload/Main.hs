@@ -38,6 +38,7 @@ import Network.HTTP.Types.Status (statusCode)
 
 import System.Directory (setCurrentDirectory, getDirectoryContents)
 import System.Environment (getArgs)
+import System.IO (stdout, hSetBuffering, BufferMode (NoBuffering))
 
 import qualified Text.HTML.DOM as Html
 import qualified Text.XML as Html hiding (parseLBS)
@@ -66,7 +67,9 @@ data File = File {
 } deriving Show
 
 data SaveConfig = SaveConfig {
-  concurrencyToken :: ByteString
+  concurrencyToken :: ByteString,
+  oldContent :: ByteString,
+  oldMetadata :: Metadata Text
 } deriving Show
 
 data Metadata a = Metadata {
@@ -262,30 +265,48 @@ metadataUpdatesFromBS bs = case parseFrontmatter bs of
 readFileBS :: File -> IO ByteString
 readFileBS File{..} = BS.readFile $ T.unpack $ fileName <> fileExtension
 
-saveUpdate :: Context -> File -> Manager -> SaveConfig -> IO ()
-saveUpdate context file@File{..} manager saveConfig = do
+unescape :: ByteString -> ByteString
+unescape
+  = T.encodeUtf8
+  . T.replace "&amp;" "&"
+  . T.replace "&gt;" ">"
+  . T.replace "&lt;" "<"
+  . T.replace "&quot;" "\""
+  . T.decodeUtf8
+
+saveUpdate :: Context -> File -> Manager -> SaveConfig -> IO Bool
+saveUpdate context file@File{..} manager saveConfig@SaveConfig{..} = do
   content <- readFileBS file
   let (metadataUpdates, content') = metadataUpdatesFromBS content
   content'' <- preprocessMarkdown content'
-  req <- postSaveReq context fileName saveConfig content''
-  response <- httpLbs req manager
-  setMetadata context fileName metadataUpdates manager
+  didUpdateContent <- if (unescape content'' == oldContent)
+    then return False
+    else do
+      req <- postSaveReq context fileName saveConfig content''
+      response <- httpLbs req manager
+      putStr "body uploaded... "
+      return True
+  let newMetadata = updateMetadata oldMetadata metadataUpdates
+  didUpdateMetadata <- if (metadataEq oldMetadata newMetadata)
+    then return False
+    else do
+      setMetadata context fileName metadataUpdates manager
+      putStr "metadata updated... "
+      return True
+  return (didUpdateContent || didUpdateMetadata)
 
 createNew :: Context -> Slug -> Manager -> IO SaveConfig
 createNew context slug manager = do
   response <- newTutorial context manager
+  saveConfig <- saveConfigFromLBS (responseBody response)
 
-  -- TODO: avoid the extra back and forth
-  oldMetadata <- htmlParseMetadata (responseBody response)
-  let metadataUpdates = (pure Nothing) { mdSlug = Just slug }
-      oldSlug = mdSlug oldMetadata
-  setMetadata context (mdSlug oldMetadata) metadataUpdates manager
-
-  tokenText <- htmlParseConcurrencyToken (responseBody response)
-  T.putStrLn $ "Created new document: " <> slug
-  return $ SaveConfig {
-    concurrencyToken = T.encodeUtf8 tokenText
-  }
+  let freshMetadata = oldMetadata saveConfig
+      metadataUpdates = (pure Nothing) { mdSlug = Just slug }
+      freshSlug = mdSlug freshMetadata
+      updatedMetadata = updateMetadata freshMetadata metadataUpdates
+  setMetadata context freshSlug metadataUpdates manager
+  T.putStr $ "created... "
+  return saveConfig{ oldMetadata = updatedMetadata }
 
 newTutorial :: Context -> Manager -> IO (Response LBS.ByteString)
 newTutorial context manager = do
@@ -399,18 +420,40 @@ htmlParseMetadata lbs = htmlParseOne "metadata" parsed where
     res -> res
 
 
+
+htmlParseContent :: MonadThrow m => LBS.ByteString -> m Text
+htmlParseContent lbs = htmlParseOne "content" parsed where
+  parsed = cursor Html.$// selector
+  cursor = Html.fromDocument (Html.parseLBS lbs)
+  selector = textareaValOf (Html.attributeIs "id" "content")
+
+  -- TODO: reduce duplication of these
+  -- (copied from htmlParseMetadata)
+  textareaValOf selector = Html.element "textarea" >=> selector
+                           >=> childContentOr ""
+  childContentOr def c = case c Html.$/ Html.content of
+    [] -> pure def
+    res -> res
+
+saveConfigFromLBS :: MonadThrow m => LBS.ByteString -> m SaveConfig
+saveConfigFromLBS lbs = do
+  tokenText <- htmlParseConcurrencyToken lbs
+  oldContentText <- htmlParseContent lbs
+  oldMetadata <- htmlParseMetadata lbs
+  return $ SaveConfig {
+    concurrencyToken = T.encodeUtf8 tokenText,
+    oldContent = T.encodeUtf8 oldContentText,
+    oldMetadata = oldMetadata
+  }
+
 -- Discovers the concurrency token.
 -- Creates the tutorial first if it doesn't exist yet.
 getSaveConfig :: Context -> Slug -> Manager -> IO SaveConfig
 getSaveConfig context slug manager = do
     req <- getTutorialReq context slug
-
     handle handler404 $ do
       response <- httpLbs req manager
-      tokenText <- htmlParseConcurrencyToken (responseBody response)
-      return $ SaveConfig {
-        concurrencyToken = T.encodeUtf8 tokenText
-      }
+      saveConfigFromLBS (responseBody response)
   where
     handler404 e@(StatusCodeException status _ _) =
       if statusCode status == 404
@@ -426,10 +469,14 @@ publishTutorial context slug manager = do
 
 uploadFile :: Context -> Manager -> File -> IO ()
 uploadFile context manager file@File{..} = do
-  T.putStrLn $ "Uploading: " <> fileName
-  getSaveConfig context fileName manager >>=
+  T.putStr $ "Uploading: " <> fileName <> "... "
+  didUpdate <- getSaveConfig context fileName manager >>=
     saveUpdate context file manager
-  publishTutorial context fileName manager
+  if didUpdate
+    then do
+      publishTutorial context fileName manager
+      putStrLn "published."
+    else putStrLn "skipped."
 
 
 uploadAll :: Context -> [File] -> Manager -> IO ()
@@ -486,6 +533,7 @@ deleteAllExceptFor context@Context{..} files manager = do
 main = do
   context <- getContext
   files <- getFiles
+  hSetBuffering stdout NoBuffering
   withManager tlsManagerSettings $ \manager -> do
     uploadAll context files manager
     deleteAllExceptFor context files manager
