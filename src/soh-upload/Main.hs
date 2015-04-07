@@ -265,21 +265,12 @@ metadataUpdatesFromBS bs = case parseFrontmatter bs of
 readFileBS :: File -> IO ByteString
 readFileBS File{..} = BS.readFile $ T.unpack $ fileName <> fileExtension
 
-unescape :: ByteString -> ByteString
-unescape
-  = T.encodeUtf8
-  . T.replace "&amp;" "&"
-  . T.replace "&gt;" ">"
-  . T.replace "&lt;" "<"
-  . T.replace "&quot;" "\""
-  . T.decodeUtf8
-
 saveUpdate :: Context -> File -> Manager -> SaveConfig -> IO Bool
 saveUpdate context file@File{..} manager saveConfig@SaveConfig{..} = do
   content <- readFileBS file
   let (metadataUpdates, content') = metadataUpdatesFromBS content
   content'' <- preprocessMarkdown content'
-  didUpdateContent <- if (unescape content'' == oldContent)
+  didUpdateContent <- if (content'' == oldContent)
     then return False
     else do
       req <- postSaveReq context fileName saveConfig content''

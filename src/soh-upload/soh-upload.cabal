@@ -24,7 +24,7 @@ executable soh-upload
     , http-client-tls >=0.2
     , http-types >=0.8
     , directory >=1.2
-    , html-conduit >=1.1
+    , html-conduit >=1.1.1.2
     , xml-conduit >=1.2
     , pcre-light >=0.4
     , resourcet >=1.1
