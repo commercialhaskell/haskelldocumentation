@@ -101,7 +101,7 @@ f :: SomeVal -> SomeVal -> SomeVal -> Either F'sExceptionType F'sResult
 ```
 
 The problem is that these types don't unify. Also, it's commonly the case that
-we really don't need to about *why* a lookup failed, we just need to deal with
+we really don't need to know about *why* a lookup failed, we just need to deal with
 it. For those cases, `Maybe` is better.
 
 The solution to this is the `MonadThrow` typeclass from the exceptions package.
