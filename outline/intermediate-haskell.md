@@ -135,6 +135,10 @@ individual approaches. For now:
 
 * [Web Application Interface](https://github.com/yesodweb/yesodweb.com-content/blob/master/book/asciidoc/web-application-interface.asciidoc)
 * [Yesod Web Framework](http://www.yesodweb.com/book)
+* [Snap](http://snapframework.com/)
+* Servant
+    * [Official tutorial](https://haskell-servant.github.io/tutorial/)
+    * [Alternative tutorial/example project](https://github.com/k-bx/owlcloud)
 
 ## Big library guide
 
