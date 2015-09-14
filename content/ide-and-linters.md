@@ -14,7 +14,7 @@ Incomplete. Need to add:
   * Additional:
     * multi-tags search
     * projectile for projects
-* Vim: pretty much everything
+* Vim - expand, show simple usage of each without redoing the libraries' own documentation
 * fpcomplete IDE
 * other IDEs not listed here
 
@@ -226,3 +226,15 @@ Then put this to your `.emacs`:
 ```
 
 Voila! Beautiful auto-complete from `ghc-mod` works like a charm.
+
+## Vim
+
+Suggested plugins
+
+* [Vimproc](https://github.com/Shougo/vimproc.vim) (required when installing ghcmod-vim)
+* [ghcmod-vim](https://github.com/eagletmt/ghcmod-vim) - a wrapper for the multifaceted [ghc-mod](https://github.com/kazu-yamamoto/ghc-mod) command-line tool
+* [vim2hs](https://github.com/dag/vim2hs) - A configurable collection of syntax highlighting and keyword shortcuts tailored for Haskell development
+* [Syntastic](https://github.com/scrooloose/syntastic) - syntax checking and linting
+* [neco-ghc](https://github.com/eagletmt/neco-ghc) - Haskell/GHC completion plugin
+* [neocomplete](https://github.com/Shougo/neocomplete.vim) - General-purpose keyword completion engine, fed by neco-ghc
+* [Cabal Context](https://github.com/timmytofu/vim-cabal-context) - Sets pwd to the directory of the nearest cabal file, useful for bouncing between different libraries
