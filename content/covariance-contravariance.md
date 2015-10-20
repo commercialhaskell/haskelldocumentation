@@ -23,7 +23,7 @@ without diving into the category theory behind them too much. For more
 information, please see [the Wikipedia page on covariance and
 contravariance](https://en.wikipedia.org/wiki/Covariance_and_contravariance_%28computer_science%29).
 
-## Functors are covariant
+## The Functor typeclass: covariant functor
 
 Let's consider the following functions (made monomorphic for clarity):
 
