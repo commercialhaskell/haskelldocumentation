@@ -22,7 +22,7 @@ before_install:
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
 install:
- - (cd src/soh-upload && stack $ARGS --no-terminal --install-ghc test --pedantic --haddock)
+- (cd src/soh-upload && stack $ARGS --no-terminal --install-ghc test --pedantic --haddock --copy-bins)
 
 # Here starts the actual work to be performed for the package under test; any command which exits with a non-zero exit code causes the build to fail.
 script:

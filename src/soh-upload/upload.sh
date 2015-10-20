@@ -1,3 +1,7 @@
+#!/usr/bin/env bash
+
+set -eoux pipefail
+
 # Intended usage is from the root of the repo:
 # ./src/soh-upload/upload.sh
 
@@ -20,7 +24,7 @@ security-token: $SIG_TOKEN
 folder: $SIG_FOLDER$FOLDER/
 EOF
 
-stack exec soh-upload $FOLDER
+soh-upload $FOLDER
 
 rm $FOLDER/soh-upload.yaml
 
