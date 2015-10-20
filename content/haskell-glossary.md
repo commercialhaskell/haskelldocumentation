@@ -13,8 +13,8 @@ make any additions desired without checking with the author! Try to keep
 everything in alphabetical order.
 
 * __Catamorphism__
-* __Contravaraint__
-* __Covariant__
-* __Negative position__
-* __Positive position__
+* __Contravaraint__: see [covariance and contravariance](covariance-contravariance.md)
+* __Covariant__: see [covariance and contravariance](covariance-contravariance.md)
+* __Negative position__: see [covariance and contravariance](covariance-contravariance.md)
+* __Positive position__: see [covariance and contravariance](covariance-contravariance.md)
 
