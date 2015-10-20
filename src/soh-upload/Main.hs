@@ -26,7 +26,6 @@ import Data.Text (Text)
 import qualified Data.Text as T
 import qualified Data.Text.Encoding as T
 import qualified Data.Text.IO as T
-import Data.Time.Clock (getCurrentTime)
 import qualified Data.Traversable as T
 import Data.Typeable (Typeable)
 import qualified Data.Yaml as Yaml
@@ -259,7 +258,7 @@ parseFrontmatter bs = yamlBSEither >>= decodeEitherFst where
 
 metadataUpdatesFromBS :: ByteString -> (Metadata (Maybe Text), ByteString)
 metadataUpdatesFromBS bs = case parseFrontmatter bs of
-  Left e -> (pure Nothing, bs) -- TODO: log errors?
+  Left _e -> (pure Nothing, bs) -- TODO: log errors?
   Right (MetadataUpdate m, bs') -> (m, bs')
 
 readFileBS :: File -> IO ByteString
@@ -274,7 +273,7 @@ saveUpdate context file@File{..} manager saveConfig@SaveConfig{..} = do
     then return False
     else do
       req <- postSaveReq context fileName saveConfig content''
-      response <- httpLbs req manager
+      _response <- httpLbs req manager
       putStr "body uploaded... "
       return True
   let newMetadata = updateMetadata oldMetadata metadataUpdates
@@ -341,7 +340,7 @@ testSetMetadata = do
   }
 
   setMetadata context slug updatesToMetadata manager
-  (_, m) <- getMetadata context slug manager
+  (_, _m) <- getMetadata context slug manager
   --putStr "After: " >> print m
   return ()
 
@@ -420,7 +419,7 @@ htmlParseContent lbs = htmlParseOne "content" parsed where
 
   -- TODO: reduce duplication of these
   -- (copied from htmlParseMetadata)
-  textareaValOf selector = Html.element "textarea" >=> selector
+  textareaValOf selector' = Html.element "textarea" >=> selector'
                            >=> childContentOr ""
   childContentOr def c = case c Html.$/ Html.content of
     [] -> pure def
@@ -450,11 +449,12 @@ getSaveConfig context slug manager = do
       if statusCode status == 404
       then createNew context slug manager
       else throwIO e
+    handler404 e = throwIO e
 
 publishTutorial :: Context -> Slug -> Manager -> IO ()
 publishTutorial context slug manager = do
   req <- postPublishReq context slug
-  response <- httpLbs req manager
+  _response <- httpLbs req manager
   -- TODO: check the response?
   return ()
 
@@ -480,7 +480,7 @@ deleteItem :: Context -> Manager -> Slug -> IO ()
 deleteItem context manager slug = do
   T.putStrLn $ "Deleting: " <> slug
   req <- postDelReq context slug
-  httpNoBody req manager
+  _response <- httpNoBody req manager
   return ()
 
 
@@ -501,30 +501,31 @@ deleteAllExceptFor context@Context{..} files manager = do
 
     selector = Html.element "ul" >=> hasClass "media-list"
        Html.&/ Html.element "li"
-      Html.&// Html.element "a" >=> checkAttribute "href" pred
+      Html.&// Html.element "a" >=> checkAttribute "href" pred'
            >=> Html.attribute "href"
       where
-        pred = T.isPrefixOf prefix
+        pred' = T.isPrefixOf prefix
 
     hasClass c = Html.checkElement $ \e ->
       case M.lookup "class" (Html.elementAttributes e) of
         Nothing -> False
         Just cs -> any (== c) (T.words cs)
 
-    checkAttribute attr pred = Html.checkElement $ \e ->
+    checkAttribute attr pred' = Html.checkElement $ \e ->
       case M.lookup attr (Html.elementAttributes e) of
         Nothing -> False
-        Just v -> pred v
+        Just v -> pred' v
 
     parseSuffix link =
       let Just suffix = T.stripPrefix prefix link
       in suffix
 
 
+main :: IO ()
 main = do
   context <- getContext
   files <- getFiles
   hSetBuffering stdout NoBuffering
-  withManager tlsManagerSettings $ \manager -> do
-    uploadAll context files manager
-    deleteAllExceptFor context files manager
+  manager <- newManager tlsManagerSettings
+  uploadAll context files manager
+  deleteAllExceptFor context files manager

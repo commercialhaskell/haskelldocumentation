@@ -3,10 +3,7 @@
 module Preprocess (preprocessMarkdown) where
 
 import Data.Maybe
-import qualified Data.Map as M
 import Control.Applicative
-import Control.Monad
-import Control.Monad.Trans.Resource (runResourceT)
 import Data.Conduit
 import Data.Conduit.Binary (sinkLbs)
 import qualified Data.Conduit.List as CL (map)
@@ -17,9 +14,7 @@ import Text.HTML.DOM (eventConduit)
 import Text.XML.Stream.Render (renderBytes, def)
 import Text.Markdown (markdown)
 import Data.ByteString (ByteString)
-import qualified Data.ByteString as BS
 import qualified Data.ByteString.Lazy as LBS
-import Data.Functor.Identity
 import Text.Blaze.Html.Renderer.Utf8 (renderHtmlBuilder)
 import Data.Conduit.Blaze (builderToByteString)
 import qualified Data.Text.Lazy.Encoding as LT
@@ -98,7 +93,3 @@ preprocessMarkdown bs = fmap afterStream $ asIO
 
     asIO :: IO a -> IO a
     asIO = id
-
-main = BS.readFile "source.md"
-   >>= preprocessMarkdown
-   >>= BS.writeFile "sink.html"
