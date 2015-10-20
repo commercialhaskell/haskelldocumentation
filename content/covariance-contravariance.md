@@ -511,3 +511,46 @@ newtype E7 a = E7 ((() -> () -> a) -> a)
 newtype E8 a = E8 ((() -> a -> ()) -> a)
 newtype E9 a = E8 ((() -> () -> ()) -> ())
 ```
+
+## Lifting `IO` to `MonadIO`
+
+Let's look at something seemingly unrelated to get a feel for the power of our
+new analysis tools. Consider the base function `openFile`:
+
+```haskell
+openFile :: FilePath -> IOMode -> IO Handle
+```
+
+We may want to use this from a monad transformer stack based on top of the `IO`
+monad. The standard approach to that is to use the `MonadIO` typeclass as a
+constraint, and its `liftIO` function. This is all rather straightforward:
+
+```haskell
+import System.IO
+import Control.Monad.IO.Class
+
+openFileLifted :: MonadIO m => FilePath -> IOMode -> m Handle
+openFileLifted fp mode = liftIO (openFile fp mode)
+```
+
+But of course, we all prefer using the `withFile` function instead of
+`openFile` to ensure resources are cleaned up in the presence of exceptions. As
+a reminder, that function has a type signature:
+
+```haskell
+withFile :: FilePath -> IOMode -> (Handle -> IO a) -> IO a
+```
+
+So can we somehow write our lifted version with type signature:
+
+```haskell
+withFileLifted :: MonadIO m => FilePath -> IOMode -> (Handle -> m a) -> m a
+```
+
+Try as we might, this can't be done, at least not directly (if you're really
+curious, see [lifted-base](http://www.stackage.org/package/lifted-base) and its
+implementation of `bracket`). And now, we have the vocabulary to explain this
+succinctly: the `IO` type appears in both positive and negative position in
+`withFile`'s type signature. By contrast, with `openFile`, `IO` appears
+exclusively in positive position, meaning our transformation function
+(`liftIO`) can be applied to it.
