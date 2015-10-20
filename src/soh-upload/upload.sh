@@ -9,10 +9,8 @@ set -eoux pipefail
 # cabal install src/soh-upload
 
 # You must set SIG_USER and SIG_TOKEN
-# You may set SIG_FOLDER
-#   (but make sure it has a trailing slash)
 
-echo Uploading files to $SIG_USER/$SIG_FOLDER
+echo Uploading files to $SIG_USER
 
 for FOLDER in content outline; do
 
@@ -21,7 +19,7 @@ echo ======= begin $FOLDER directory =======
 cat > $FOLDER/soh-upload.yaml <<- EOF
 user: $SIG_USER
 security-token: $SIG_TOKEN
-folder: $SIG_FOLDER$FOLDER/
+folder: $FOLDER/
 EOF
 
 soh-upload $FOLDER
