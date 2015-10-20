@@ -20,7 +20,7 @@ security-token: $SIG_TOKEN
 folder: $SIG_FOLDER$FOLDER/
 EOF
 
-soh-upload $FOLDER
+stack exec soh-upload $FOLDER
 
 rm $FOLDER/soh-upload.yaml
 
