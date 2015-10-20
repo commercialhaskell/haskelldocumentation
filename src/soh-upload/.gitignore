@@ -1,3 +1,4 @@
 dist/
 .hsenv/
 cabal.sandbox.config
+/.stack-work/
