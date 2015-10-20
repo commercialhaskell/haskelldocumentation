@@ -49,6 +49,7 @@ This section demonstrates some common Haskell coding patterns, how they work,
 when they're useful, and possible pitfalls.
 
 * [Monad Transformers](../content/monad-transformers.md)
+* [Covariance, contravariance, and positive and negative position](../content/covariance-contravariance.md)
 * Continuation Passing Style
 * Builders and difference lists
 
