@@ -214,7 +214,7 @@ before, which hopefully isn't too surprising.
 
 Let's say we want to print out all of the numbers from 1 to 10, where the
 English word for that number is more than three characters long. Using a simple
-helper function `english :: Int -> String` and `filter, this is pretty simple:
+helper function `english :: Int -> String` and `filter`, this is pretty simple:
 
 ```
 greaterThanThree :: Int -> Bool
@@ -379,7 +379,7 @@ set of terms.
 Let's look at some basic covariant and contravariant data types:
 
 ```haskell
-data WithInt a = UsesInt (Int -> a)
+data WithInt a = WithInt (Int -> a)
 data MakeInt a = MakeInt (a -> Int)
 ```
 
