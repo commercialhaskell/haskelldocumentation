@@ -496,7 +496,7 @@ that makes sense, and similarly that there is no valid `Contravariant`
 instance.
 
 __Exercise 3__: For each of the following newtype wrappers, determine if they
-are covaraint or contravaraint in their arguments:
+are covariant or contravariant in their arguments:
 
 ```haskell
 newtype E1 a = E1 (a -> ())
