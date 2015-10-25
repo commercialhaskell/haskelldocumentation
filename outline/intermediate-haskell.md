@@ -37,7 +37,7 @@ follow the rest of this outline in particular.
 Covers some of the most commonly used data structures in Haskell, and the
 libraries providing them.
 
-* vector (cover vector-algorithms)
+* [vector](../content/vector.md)
 * containers
 * unordered-containers
 * text (cover text-icu)
