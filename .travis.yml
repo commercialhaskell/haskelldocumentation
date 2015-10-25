@@ -26,7 +26,7 @@ install:
 
 # Here starts the actual work to be performed for the package under test; any command which exits with a non-zero exit code causes the build to fail.
 script:
- - if [ $TRAVIS_BRANCH = 'master' ]; then ./src/soh-upload/upload.sh; fi
+- if [ $TRAVIS_BRANCH = 'master' -a $TRAVIS_PULL_REQUEST = 'false' ]; then ./src/soh-upload/upload.sh; fi
 
 # Caching so the next build will be fast too.
 cache:
