@@ -21,7 +21,7 @@ examples of using the package.
 ## Example
 
 Since we're about to jump into a few section of descriptive text, let's kick
-this off with a concrete example of whet your appetite. We're going to count
+this off with a concrete example to whet your appetite. We're going to count
 the frequency of different bytes that appear on standard output, and then
 display this content.
 
@@ -101,7 +101,7 @@ normal concerns of shared mutable state. And perhaps most importantly for
 usage: mutable vectors can be *much* more efficient for certain use cases.
 
 However, that's not the only dimension of choice you get in the vector package.
-vector itself defines three flavors: unboxed
+vector itself defines three flavors: boxed
 (`Data.Vector`/`Data.Vector.Mutable`), storable (`Data.Vector.Storable` and
 `Data.Vector.Storable.Mutable`), and unboxed (`Data.Vector.Unboxed` and
 `Data.Vector.Unboxed.Mutable`). (There's also technically primitive vectors,
