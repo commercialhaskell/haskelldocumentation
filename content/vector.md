@@ -136,7 +136,7 @@ list (indexing to position N requires N pointer dereferences).
 By contract, vectors are stored in a packed format in memory, meaning indexing
 is an O(1) operation, and the memory overhead per additional item in the vector
 is much smaller (depending on the type of vector, which we'll cover in a
-moment). However, compared to lists, appending an item to a vector is
+moment). However, compared to lists, prepending an item to a vector is
 relatively expensive: it requires creating a new buffer in memory, copying the
 old values, and then adding the new value.
 
