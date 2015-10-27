@@ -220,7 +220,7 @@ mutable vectors, but as usual you need to be a bit more careful.
 ## Replacing lists
 
 Enough talk! Let's start using vector. Assuming you're familiar with the list
-API, this should looke rather boring.
+API, this should look rather boring.
 
 ```haskell
 import qualified Data.Vector as V
