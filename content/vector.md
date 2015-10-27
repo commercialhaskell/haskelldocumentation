@@ -11,7 +11,7 @@ The de facto standard package in the Haskell ecosystem for integer-indexed
 array data is the [vector package](http://www.stackage.org/package/vector).
 This corresponds at a high level to arrays in C, or the vector class in C++'s
 STL. However, the vector package offers quite a bit of functionality not
-familiar to those used to options in imperative and mutable languages.
+familiar to those used to the options in imperative and mutable languages.
 
 While the interface for vector is relatively straightforward, the abundance of
 different modules can be daunting. This article will start off with an overview
@@ -20,9 +20,9 @@ examples of using the package.
 
 ## Example
 
-Since we're about to jump into a few section of descriptive text, let's kick
+Since we're about to jump into a few sections of descriptive text, let's kick
 this off with a concrete example to whet your appetite. We're going to count
-the frequency of different bytes that appear on standard output, and then
+the frequency of different bytes that appear on standard input, and then
 display this content.
 
 Note that this example is purposely written in a very generic form. We'll build
@@ -133,8 +133,8 @@ create a pointer to the value in the current cell. This takes up a lot of
 memory for holding pointers, and makes it inefficient to index or traverse the
 list (indexing to position N requires N pointer dereferences).
 
-By contract, vectors are stored in a packed format in memory, meaning indexing
-is an O(1) operation, and the memory overhead per additional item in the vector
+In contrast, vectors are stored in a contiguous set of memory locations, meaning random access
+is a constant time operation, and the memory overhead per additional item in the vector
 is much smaller (depending on the type of vector, which we'll cover in a
 moment). However, compared to lists, prepending an item to a vector is
 relatively expensive: it requires creating a new buffer in memory, copying the
@@ -143,8 +143,9 @@ old values, and then adding the new value.
 There are other data structures that can be considered for list-like data, such
 as `Seq` from containers, or in some cases a `Set`, `IntMap`, or `Map`.
 Figuring out the best choice for each use case can only be reliably determined
-via profiling. But as a general rule: densely populated lists with integral
-access to the values will be best served by vector.
+via profiling and benchmarking. As a general rule though, a densely populated
+collection requiring integral or random access to the values will be best served by
+a vector.
 
 Now let's talk about some of the other things that make vector so efficient.
 
@@ -204,9 +205,9 @@ memory?
 The vector package has a powerful technique: stream fusion. Using GHC rewrite
 rules, it's able to find many cases where creating a vector is unnecessary, and
 instead create a tight inner loop. In our case, GHC will end up generating code
-that can avoid touching system memory, and instead work on just the registers,
+that can avoid touching system memory, and instead work on just the [registers](https://en.wikipedia.org/wiki/Processor_register),
 yielding not only a tiny memory footprint, but performance close to a for-loop
-in C. This is one of the beauties of this library: you get to write high-level
+in C. This is one of the beauties of this library: you can write high-level
 code, and optimizations can churn out something much more CPU-friendly.
 
 ### Slicing
@@ -262,7 +263,7 @@ prefix your function calls with `V.`.
 
 * Exercise 3: Use an unboxed (or storable) vector instead of the boxed vectors
   we were using above. What code did you have to change from the original
-  example?  Do your examples from exercise 2 all work still?
+  example?  Do all of your examples from exercise 2 still work?
 
 There are also a number of functions in the `Data.Vector` module with no
 corresponding function in `Prelude`. Many of these are related to mutable
@@ -333,15 +334,16 @@ random index, read the old value at that index, increment it, and write it
 back.
 
 After we're finished, we _freeze_ the vector (more on that in the next section)
-and print it. The results are the same (or close - we are dealing with random
-numbers here) to the previous immutable one. But instead of 48MB and 1.968s,
+and print it. The resulting distribution of values is the same (or close - we are dealing with random
+numbers here) as the previous calculation using an immutable vector. But instead of 48MB and 1.968s,
 this program has a maximum residency of 44KB and runs in 0.247s! That's a
 significant improvement!
 
 If we feel like being even more adventurous, we can replace our `read` and
 `write` calls with `unsafeRead` and `unsafeWrite`. That will disable some
 bounds checks before reading and writing. This can be a nice performance boost
-in very tight loops, but has the potential to segfault your program, so caveat
+in very tight loops, but has the potential to [segfault](https://en.wikipedia.org/wiki/Segmentation_fault)
+your program, so caveat
 emptor! For example, try replacing `replicate 10` with `replicate 9`, change
 the `read` for an `unsafeRead`, and run your program. You'll see something
 like:
@@ -394,8 +396,8 @@ Why not just freeze it in place? Two reasons, actually:
     `write` call would modify our `ivector` value, meaning that the first and
     second call to `print ivector` would have different results!
 
-2.  When you freeze a mutable vector, its memory is marked different for
-    garbage collection purposes. Later trying to write to that same memory can
+2.  When you freeze a mutable vector, its memory is marked differently for
+    garbage collection purposes. Later attempts to write to that same memory can
     lead to a segfault.
 
 However, if you really want to avoid that extra buffer copy, and are certain
