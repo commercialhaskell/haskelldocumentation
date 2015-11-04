@@ -2,20 +2,20 @@
 This is a collection of exercises for learning Haskell. Each exercise comes with tests for verifying your solution.
 
 I suggest you do the exercises in this order:
-* Functions
-* Maybe
-* PatternMatching
-* Recursion
-* RecursionSchemes
-* UpdateRecords
-* HigherOrderFunctions
-* QuickCheck
-* LogParser
-* ProjectEuler
-* TextCalculator
-* Regex
-* BinTree
-* Vigenere
+* [Functions](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/Functions/Functions.hs)
+* [Maybe](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/Maybe/Maybe.hs)
+* [PatternMatching](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/PatternMatching/PatternMatching.hs)
+* [Recursion](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/Recursion/Recursion.hs)
+* [RecursionSchemes](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/RecursionSchemes/RecursionSchemes.hs)
+* [UpdateRecords](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/UpdateRecords/UpdateRecords.hs)
+* [HigherOrderFunctions](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/HigherOrderFunctions/HigherOrderFunctions.hs)
+* [QuickCheck](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/QuickCheck/QuickCheck.hs)
+* [LogParser](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/LogParser/LogParser.hs)
+* [ProjectEuler](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/ProjectEuler/ProjectEuler.hs)
+* [TextCalculator](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/TextCalculator/TextCalculator.hs)
+* [Regex](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/Regex/Regex.hs)
+* [BinTree](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/BinTree/BinTree.hs)
+* [Vigenere](https://github.com/commercialhaskell/haskelldocumentation/blob/master/exercises/Vigenere/Vigenere.hs)
 
 You are free to use these exercises in workshops and other learning material.
 
