@@ -1,0 +1,41 @@
+name:                hands-on-haskell
+version:             2.0.0.0
+author:              Tobias G. Waaler
+maintainer:          tobiasgwaaler@gmail.com
+category:            Educational
+build-type:          Simple
+
+extra-source-files:  README.md
+cabal-version:       >=1.10
+
+test-suite exercises
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      .
+                      -- basics
+                      , Functions
+                      , Maybe
+                      , PatternMatching
+                      , Recursion
+                      , RecursionSchemes
+                      , UpdateRecords
+                      , HigherOrderFunctions
+                      , QuickCheck
+                      -- challenges
+                      , LogParser
+                      , ProjectEuler
+                      , TextCalculator
+                      , Regex
+                      , BinTree
+                      , Vigenere
+  other-modules:
+  build-depends:       base,
+                       QuickCheck,
+                       hspec,
+                       containers
+  main-is:             Spec.hs
+  default-language:    Haskell2010
+
+
+-- Cabal requires a library (or executable) to be present to build a project:
+library
+  default-language:    Haskell2010
