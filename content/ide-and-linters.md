@@ -15,7 +15,6 @@ Incomplete. Need to add:
     * multi-tags search
     * projectile for projects
 * Vim - expand, show simple usage of each without redoing the libraries' own documentation
-* fpcomplete IDE
 * other IDEs not listed here
 
 ## Emacs
