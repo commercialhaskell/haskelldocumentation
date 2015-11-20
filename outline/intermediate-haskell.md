@@ -165,7 +165,7 @@ preludes (in alphabetical order).
 * [Primitive Haskell](../content/primitive-haskell.md)
 * https://wiki.haskell.org/Evaluation_order_and_state_tokens
 * Cabal trickery for backwards compatibility: Cabal CPP macros. Paths module. Flags. How to test for windows. Defaulting macros for ghci. Flags to either use new library version or another package (bytestring-builder) and set a CPP variable.
-* [Constraitn trick for instances](http://chrisdone.com/posts/haskell-constraint-trick); perhaps we can have a section for common type patterns (newtypes an obvious one, and also for example using Rank-N types to store a generic function in a data structure, versus existential types to store generic data).
+* [Constraint trick for instances](http://chrisdone.com/posts/haskell-constraint-trick); perhaps we can have a section for common type patterns (newtypes an obvious one, and also for example using Rank-N types to store a generic function in a data structure, versus existential types to store generic data).
 
 ## Database Programming
 
