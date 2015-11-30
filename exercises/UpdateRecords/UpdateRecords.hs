@@ -37,6 +37,7 @@ sweeterBrother = sweden {nickname = "Söta bror"}
     Exercise:
     Define backupDBWeekly as a copy of backupDB, but with a few 
     altered fields: 
+        cron = "@weekly"
         user = "dbadmin"
         priority = 8
         displayName = "Weekly Backup of Postgres DB"

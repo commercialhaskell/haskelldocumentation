@@ -19,7 +19,7 @@ correctBackupDBWeekly = UR.ScheduledJob {
     UR.displayName = "Weekly Backup of Postgres DB",
 
     UR.command = "/usr/bin/backupdb",
-    UR.cron = "@daily",
+    UR.cron = "@weekly",
     UR.threads = 1,
     UR.timeoutMinutes = 60
     }
