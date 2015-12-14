@@ -65,7 +65,7 @@ This is usually done with the idea that in the future the error type will be cha
 
 Generally the solution to the `ExceptT IO` anti-pattern is to return an `Either` from more functions and throw an exception for uncommon errors. Note that returning `Either` from `ExceptT IO` means there are now 3 distinct sources of errors in just one function.
 
-Please not that using ExceptT, etc with a non-IO base monad (for example with pure code) is a perfectly fine pattern.
+Please note that using ExceptT, etc with a non-IO base monad (for example with pure code) is a perfectly fine pattern.
 
 
 ### Mask-them-all anti-pattern
