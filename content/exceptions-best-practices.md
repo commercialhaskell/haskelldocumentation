@@ -55,6 +55,19 @@ transformer stack used in a public-facing API. It's usually better to express a
 function in terms of typeclass requirements, using mtl typeclasses as
 necessary.
 
+A similar pattern is
+
+```haskell
+myFunction :: String -> ExceptT Text IO Int
+```
+
+This is usually done with the idea that in the future the error type will be changed from `Text` to something like `MyException`. However, `Text` may end up sticking around forever because it helps avoid the composition problems of a real data type. However that leads to expressing useful error data types as unstructured `Text`.
+
+Generally the solution to the `ExceptT IO` anti-pattern is to return an `Either` from more functions and throw an exception for uncommon errors. Note that returning `Either` from `ExceptT IO` means there are now 3 distinct sources of errors in just one function.
+
+Please not that using ExceptT, etc with a non-IO base monad (for example with pure code) is a perfectly fine pattern.
+
+
 ### Mask-them-all anti-pattern
 
 This anti-pattern goes like this: remembering to deal with async exceptions everywhere is hard, so I'll just mask them all.
