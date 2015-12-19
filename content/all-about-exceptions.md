@@ -14,7 +14,6 @@ Should cover:
 * Exceptions in pure code
 * Difference between `throw` and `throwIO`
 * Async exceptions
-* Catching all exceptions
 * [Exceptions in continuation based monads](http://www.yesodweb.com/blog/2014/05/exceptions-cont-monads)
 * [Exceptions and monad transformers](https://www.fpcomplete.com/user/snoyberg/general-haskell/exceptions/exceptions-and-monad-transformers)
 * [Catching all exceptions](https://www.fpcomplete.com/user/snoyberg/general-haskell/exceptions/catching-all-exceptions)
