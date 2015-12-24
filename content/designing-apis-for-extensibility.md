@@ -138,7 +138,7 @@ One downside of implementation hiding is that it can make it difficult for
 users to do things you didn't intend for them to do with your API. You can
 always add more functionality on demand, but the delay can be a major nuissance
 for users. A compromise solution in the Haskell community is to provide a
-`.Internal` module for your project which exports non-quite-public components.
+`.Internal` module for your project which exports not-quite-public components.
 For example, in wai, the `Response` constructors are exposed in a
 `Network.Wai.Internal` module. Normally, users are supposed to use smart
 constructors like `responseFile`, but occasionally they'll want more
