@@ -19,15 +19,15 @@ A `Maybe a` wrapped in any other monad, i.e. `m (Maybe a)
 
 ### ReaderT
 
-`ReaderT` - a `Reader r a` in which the resulting `a` is wrapped in any other monad, i.e. `r -> m a`
+A `Reader r a` in which the resulting `a` is wrapped in any other monad, i.e. `r -> m a`
 
 ### StateT
 
-`StateT` - a `State s a` in which the return value `a` and state `s` are wrapped in any other monad, i.e. `s -> m (a, s)`
+A `State s a` in which the return value `a` and state `s` are wrapped in any other monad, i.e. `s -> m (a, s)`
 
 ### EitherT
 
-`EitherT` - an `Either e a` wrapped in any other monad, i.e. `m (Either e a)`
+An `Either e a` wrapped in any other monad, i.e. `m (Either e a)`
 
 * Simple examples of usage
 * Pitfalls of Writer laziness
