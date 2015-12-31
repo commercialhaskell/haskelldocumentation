@@ -25,7 +25,7 @@ A `Reader r a` in which the resulting `a` is wrapped in any other monad, i.e. `r
 
 A `State s a` in which the return value and state, namely `(a, s)`, are wrapped in any other monad, i.e. `s -> m (a, s)`
 
-### EitherT
+### ExceptT
 
 An `Either e a` wrapped in any other monad, i.e. `m (Either e a)`
 
