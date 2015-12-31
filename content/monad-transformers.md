@@ -120,7 +120,8 @@ If we look at the type of `lift` when specialized to various transformers, we ca
 
 In this example, we can use `lift` to go from `IO` into our transformer. But with a deeper stack, we run into problems:
 
-```> type MyDeeperStack = ReaderT Int (WriterT String IO) Bool
+```
+> type MyDeeperStack = ReaderT Int (WriterT String IO) Bool
 > :t \x -> (lift x :: MyDeeperStack)
 \x -> (lift x :: MyDeeperStack)
   :: WriterT String IO Bool -> MyDeeperStack
@@ -128,7 +129,8 @@ In this example, we can use `lift` to go from `IO` into our transformer. But wit
 
 In other words, the `m` from `lift :: m a -> t m a` in our `MyDeeperStack` is `WriterT String IO`. So we would to need `lift` *again* in order to go from `IO Bool -> MyDeeperStack`, i.e.
 
-```> :t \x -> ((lift . lift) x :: MyDeeperStack)
+```
+> :t \x -> ((lift . lift) x :: MyDeeperStack)
 \x -> ((lift . lift) x :: MyDeeperStack)
   :: IO Bool -> MyDeeperStack
 ```
@@ -143,14 +145,16 @@ type MyDeeperStack = ReaderT Int (WriterT String (MaybeT IO)) Bool
 
 `lift . lift` will no longer allow us to lift an `IO` action into our stack because we now have a third layer. 
 
-```> :t \x -> ((lift . lift) x :: MyDeeperStack)
+```
+> :t \x -> ((lift . lift) x :: MyDeeperStack)
 \x -> ((lift . lift) x :: MyDeeperStack)
   :: MaybeT IO Bool -> MyDeeperStack
 ```
 
 With `liftIO`, as is well:
 
-```> :t \x -> (liftIO x :: MyDeeperStack)
+```
+> :t \x -> (liftIO x :: MyDeeperStack)
 \x -> (liftIO x :: MyDeeperStack) :: IO Bool -> MyDeeperStack
 ```
 
@@ -160,13 +164,15 @@ Want to add another layer? No problem:
 type MyDeeperStack = ReaderT Int (WriterT String (MaybeT (ExceptT String IO))) Bool
 ```
 
-```> :t \x -> (liftIO x :: MyDeeperStack)
+```
+> :t \x -> (liftIO x :: MyDeeperStack)
 \x -> (liftIO x :: MyDeeperStack) :: IO Bool -> MyDeeperStack
 ```
 
 Without `liftIO` we'd need to keep adjusting the number of lifts:
 
-```> :t \x -> ((lift . lift . lift . lift)  x :: MyDeeperStack)
+```
+> :t \x -> ((lift . lift . lift . lift)  x :: MyDeeperStack)
 \x -> ((lift . lift . lift . lift)  x :: MyDeeperStack)
   :: IO Bool -> MyDeeperStack
 ```
