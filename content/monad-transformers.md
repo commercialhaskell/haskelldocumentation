@@ -33,7 +33,7 @@ An `Either e a` wrapped in any other monad, i.e. `m (Either e a)`
 
 [transformers](https://www.stackage.org/package/transformers) is a widely used package which provides transformer versions of various monads. It also provides two useful classes, `MonadTrans` and `MonadIO`. 
 
-`MonadTrans` makes it easy to embed one monad into another. All of the transformers defined in the `transformers` package are instances `MonadTrans`.  
+Instances of `MonadTrans` are transformers which can be applied to other monads to create new monads. All of the transformers defined in the `transformers` package are instances of `MonadTrans`.  
 
 ### MonadTrans
 
@@ -89,17 +89,19 @@ Note that in this particular example, the use of `lift` in `lift getLine` is equ
 
 Here's a (somewhat contrived) example that demonstrates the difference between `lift` and `liftIO` and the usefulness of the latter.
 
+Suppose we added another layer to our transformer stack so that, instead of `MaybeT IO String`, we had `MaybeT (ExceptT MyPasswordError IO) String`. 
+
+As in our first example, we'd like to lift the `getLine` action into our transformer. Let's try.
+
 ```haskell
 getPassword' :: MaybeT (ExceptT MyPasswordError IO) String 
 getPassword'  = do 
-  password <- liftIO getLine
+  password <- lift getLine
   guard (isValid password)
   return password
 ```
 
-In this variation we have more than one layer on top of `IO`. We have a `MaybeT` on top of `ExceptT` on top of `IO`. This is where `liftIO` helps us. We can use use `liftIO` to lift the `getLine` action into our stack no matter how deep `IO` is in our stack. 
-
-If we tried to use `lift` instead of `liftIO`, we'd see the following error:
+We get an error. Oops!
 
 ```
 Couldn't match type ‘IO’ with ‘ExceptT MyPasswordError IO’
@@ -109,8 +111,65 @@ In the first argument of ‘lift’, namely ‘getLine’
 In a stmt of a 'do' block: password <- lift getLine
 ```
 
-The error means we have another layer of our stack that we need to traverse before we can lift the IO action into our stack. In other words, we would need to do `lift (lift getLine)`. This is precisely what `liftIO` gives us. Doing `lift . lift . lift ...` is unmaintainable because it relies on the stack being a specific depth. If we decided to add another monad to our stack, our nested lifting would break. With `liftIO` we can short circuit this and simply lift the IO action all the way to the bottom of our stack.
+If we look at the type of `lift` when specialized to various transformers, we can see the problem.
 
+```
+> :t \x -> (lift x :: MaybeT IO String)
+\x -> (lift x :: MaybeT IO String) :: IO String -> MaybeT IO String
+``` 
+
+In this example, we can use `lift` to go from `IO` into our transformer. But with a deeper stack, we run into problems:
+
+```> type MyDeeperStack = ReaderT Int (WriterT String IO) Bool
+> :t \x -> (lift x :: MyDeeperStack)
+\x -> (lift x :: MyDeeperStack)
+  :: WriterT String IO Bool -> MyDeeperStack
+```
+
+In other words, the `m` from `lift :: m a -> t m a` in our `MyDeeperStack` is `WriterT String IO`. So we would to need `lift` *again* in order to go from `IO Bool -> MyDeeperStack`, i.e.
+
+```> :t \x -> ((lift . lift) x :: MyDeeperStack)
+\x -> ((lift . lift) x :: MyDeeperStack)
+  :: IO Bool -> MyDeeperStack
+```
+
+This is where `liftIO` helps us. It essentially lets us do a variable number of lifts. This lets us write less brittle code because if we decided to add yet another layer to our transformer stack, we wouldn't have to hardcode another call to `lift`. 
+
+As an example, what happens if we add a `MaybeT` to our stack?
+
+```haskell
+type MyDeeperStack = ReaderT Int (WriterT String (MaybeT IO)) Bool
+```
+
+`lift . lift` will no longer allow us to lift an `IO` action into our stack because we now have a third layer. 
+
+```> :t \x -> ((lift . lift) x :: MyDeeperStack)
+\x -> ((lift . lift) x :: MyDeeperStack)
+  :: MaybeT IO Bool -> MyDeeperStack
+```
+
+With `liftIO`, as is well:
+
+```> :t \x -> (liftIO x :: MyDeeperStack)
+\x -> (liftIO x :: MyDeeperStack) :: IO Bool -> MyDeeperStack
+```
+
+Want to add another layer? No problem:
+
+```haskell
+type MyDeeperStack = ReaderT Int (WriterT String (MaybeT (ExceptT String IO))) Bool
+```
+
+```> :t \x -> (liftIO x :: MyDeeperStack)
+\x -> (liftIO x :: MyDeeperStack) :: IO Bool -> MyDeeperStack
+```
+
+Without `liftIO` we'd need to keep adjusting the number of lifts:
+
+```> :t \x -> ((lift . lift . lift . lift)  x :: MyDeeperStack)
+\x -> ((lift . lift . lift . lift)  x :: MyDeeperStack)
+  :: IO Bool -> MyDeeperStack
+```
 
 * More transformer usage examples
 * Pitfalls of Writer laziness
