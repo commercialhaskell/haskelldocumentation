@@ -107,7 +107,7 @@ In the first argument of ‘lift’, namely ‘getLine’
 In a stmt of a 'do' block: password <- lift getLine
 ```
 
-The error means we have another layer of our stack that we need to traverse before we can lift the IO action into our stack. In other words, we would need to do `lift (lift getLine)`. This is precisely what `liftIO` gives us. Doing `lift . lift . lift ...` is unmaintainable because it relies on the stack being a specific depth. If we decided to add another monad to our stack, our nested lifting would break. With `liftIO` we can short circuit this and simply life the IO action all the way to the bottom of our stack.
+The error means we have another layer of our stack that we need to traverse before we can lift the IO action into our stack. In other words, we would need to do `lift (lift getLine)`. This is precisely what `liftIO` gives us. Doing `lift . lift . lift ...` is unmaintainable because it relies on the stack being a specific depth. If we decided to add another monad to our stack, our nested lifting would break. With `liftIO` we can short circuit this and simply lift the IO action all the way to the bottom of our stack.
 
 
 * More transformer usage examples
