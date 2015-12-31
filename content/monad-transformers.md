@@ -151,7 +151,7 @@ type MyDeeperStack = ReaderT Int (WriterT String (MaybeT IO)) Bool
   :: MaybeT IO Bool -> MyDeeperStack
 ```
 
-With `liftIO`, as is well:
+With `liftIO`, all is well:
 
 ```
 > :t \x -> (liftIO x :: MyDeeperStack)
