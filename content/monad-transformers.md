@@ -85,6 +85,8 @@ In this example, we combine the `IO` and `Maybe` monads. `lift getLine` allows u
 
 Note that in this particular example, the use of `lift` in `lift getLine` is equivalent to `liftIO getLine` since we have a one-layer transformer on top of `IO`.
 
+### lift vs liftIO
+
 Here's a (somewhat contrived) example that demonstrates the difference between `lift` and `liftIO` and the usefulness of the latter.
 
 ```haskell
