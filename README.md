@@ -1,5 +1,10 @@
 [![Build Status](https://travis-ci.org/commercialhaskell/haskelldocumentation.svg?branch=master)](https://travis-ci.org/commercialhaskell/haskelldocumentation)
 
+__NOTE__ This repository has not seen a lot of activity recently. Instead, most
+new documentation is being written for the [haskell-lang
+project](https://github.com/haskell-lang/haskell-lang) ([live
+site](https://haskell-lang.org)]). We recommend contributing there.
+
 This repository is an implementation of the [intermediate Haskell documentation
 proposal](https://github.com/commercialhaskell/commercialhaskell/blob/master/proposal/intermediate-haskell-documentation.md).
 The goal is to have a repository where any documentation can be added,
