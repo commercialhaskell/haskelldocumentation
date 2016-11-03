@@ -7,10 +7,4 @@ last-updated: 2015-03-09
 last-reviewed: 2015-03-09
 ---
 
-* Lazy vs strict
-* String, Text, and ByteString
-* Internal representation: pinned vs unpinned memory
-* Implications of lazy I/O
-* Character encoding, conversions
-* Representations (base16-bytestring/base64-bytestring)
-* Example: hashing
+Moved to: https://haskell-lang.org/tutorial/string-types

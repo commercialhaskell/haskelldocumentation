@@ -7,4 +7,4 @@ last-updated: 2015-02-24
 last-reviewed: 2015-02-24
 ---
 
-Moved to haskell-lang
+Moved to: https://haskell-lang.org/tutorial/primitive-haskell
