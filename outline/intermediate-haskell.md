@@ -7,6 +7,10 @@ last-updated: 2015-02-24
 last-reviewed: 2015-02-24
 ---
 
+__NOTE__ The links to content below will in many cases be out of date. This
+document is no longer properly maintained. I'd instead recommend checking out
+[haskell-lang.org](https://haskell-lang.org/).
+
 This outline provides a wide array of content, focused on practical lessons
 towards writing real-world applications. It presumes a basic knowledge of
 Haskell, as would be gained from books such as Real World Haskell and Learn You

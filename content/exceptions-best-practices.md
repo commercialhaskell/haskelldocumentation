@@ -206,6 +206,31 @@ at this point in the spectrum. I've proposed to the libraries mailing list to
 add a new method to the `Exception` typeclass used for user-friendly display of
 exceptions, which will make this less of a sore point.
 
+## Comment on Reddit
+
+Austin beat me to the punch on most of my response. To make one of my points more concrete, consider if I have a thread with the code:
+
+    withFile "input.txt" ReadMode $ \inH ->
+    withFile "output.txt" WriteMode $ \outH ->
+    hGetContents inH >>= hPut outH
+
+How would your "finaliser action" allow us to guarantee that `inH` and `outH` are always closed? I see no way of achieving that.
+
+I *don't* believe there is a better solution to sync exceptions, actually. That's because most of the time I see people complaining about `IO` throwing exceptions, what they *really* mean is "this specific exception just bit me, why isn't this exception explicit in the type signature?" To clarify my point further:
+
+* There are virtually 0 `IO` actions that can't fail for some reason.
+* If every `IO` action returned a `IO (Either UniqueExceptionType a)`, the programming model would become *incredibly* tedious.
+* If instead every `IO` action returned `IO (Either SomeException a)`, we'd at least not have to deal with wrangling different exception types, and could use `ErrorT` to make our code simpler, but...
+* Then we've just reinvented exactly what `IO` does today, only less efficiently!
+
+My belief is that people are simply ignoring the reality of the situation: the contract for `IO` implicitly includes "this action may also fail." And I mean in every single case. Built in, runtime exceptions hide that in the type, but you need to be aware of it. Runtime exceptions *also* happen to be far more efficient than using `ErrorT` everywhere.
+
+And as much as some people complain that exceptions are difficult to handle correctly, I highly doubt `ErrorT` or anything else would be easier to work with, we'd just be trading in a well-developed, mostly-understood system for a system we think we understand.
+
+Come up with a concrete "no more exceptions" proposal, and I'll discuss it more concretely. But "there are better solutions, we all know it" isn't a discussion point.
+
+https://www.reddit.com/r/haskell/comments/2ety9f/new_blog_post_dealing_with_asynchronous/ck3fkbp/
+
 ## See also
 
 * [Catching all exceptions](https://www.fpcomplete.com/user/snoyberg/general-haskell/exceptions/catching-all-exceptions)
